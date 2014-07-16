@@ -27,14 +27,14 @@ class siqqelLib {
 		return json_encode(array('SQL' => $encryptedQuery, 'hashParams' => $hashParams));
 	}
 
-	public static function buildSqlQuery($encryptedQuery) {
+	public static function buildSqlQuery($encryptedQuery, $db) {
 		$oQuery = json_decode($encryptedQuery);
 		
 		$sqlQuery = $oQuery->SQL;
 
 		if (is_object($oQuery->hashParams)) {
 			foreach ($oQuery->hashParams as $name => $value) {
-				$sqlQuery = str_replace('#' . $name, mysql_escape_string($value), $sqlQuery);
+				$sqlQuery = str_replace('#' . $name, mysqli_real_escape_string($db, $value), $sqlQuery);
 			}
 		}
 

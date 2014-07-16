@@ -55,7 +55,7 @@ $db->set_charset('utf8');
 
 $sQueryString = $_GET['sql'];
 if (ini_get('magic_quotes_gpc') == '1') $sQueryString = stripslashes($sQueryString);
-$sqlQuery = siqqelLib::buildSqlQuery($sQueryString);
+$sqlQuery = siqqelLib::buildSqlQuery($sQueryString, $db);
 
 if ($oMysqlResult = $db->query($sqlQuery)) {
 	if ($iErrNo = mysqli_errno($db)) {
